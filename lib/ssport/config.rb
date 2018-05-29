@@ -33,7 +33,7 @@ class Config
         end
     end
     
-    def applyChange(config_json)
+    def applyChange
         changeField @@SERVER_PORT , :port
         changeField @@PASSWORD , :password
         changeField @@METHOD , :method
