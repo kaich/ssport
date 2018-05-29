@@ -58,12 +58,12 @@ module Ssport
 
     Net::SSH.start(options[:server], options[:username], :password => options[:pass]) do |ssh|
       # capture all stderr and stdout output from a remote process
-      parameter = """
+      parameter = %Q{
       if ! [ -x "$(command -v ssport)" ]; then
         gem install ssport
       if
       ssport -b #{options[:port]}
-      """
+      }
       output = ssh.exec!("~/bin/command '#{parameter}'"
 
     end
