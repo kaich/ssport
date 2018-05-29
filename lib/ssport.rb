@@ -64,7 +64,7 @@ module Ssport
       if
       ssport -b #{options[:port]}
       }
-      output = ssh.exec!("~/bin/command '#{parameter}'"
+      output = ssh.exec!("~/bin/command '#{parameter}'")
 
     end
 
