@@ -48,9 +48,11 @@ module Ssport
     if options[:server] 
       ssh options
     end
-
-    config = Config(options)
-    config.run
+    
+    if options[:config]
+      config = Config.new(options)
+      config.run
+    end
 
   end
 
@@ -58,17 +60,16 @@ module Ssport
 
     Net::SSH.start(options[:server], options[:username], :password => options[:pass]) do |ssh|
       # capture all stderr and stdout output from a remote process
-      parameter = %Q{
+      script = %Q{
       if ! [ -x "$(command -v ssport)" ]; then
         gem install ssport
       if
       ssport -b #{options[:port]}
       }
-      output = ssh.exec!("~/bin/command '#{parameter}'")
-
+      output = ssh.exec!(script)
+      puts output
     end
 
-    puts output
   end
 
 end

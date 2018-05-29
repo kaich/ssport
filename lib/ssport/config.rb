@@ -7,18 +7,18 @@ class Config
     def initialize(options)
         @options = options
         @config_file = options[:config]
-        if !@config_file 
-            raise "config file not set"
-        end 
     end
 
     def run
+        if !@config_file 
+            raise "config file not set"
+        end 
         parseConfig
         applyChange
     end
 
     def parseConfig
-        if File.exist? config_file 
+        if File.exist? @config_file 
             file_content = File.read @config_file
             @config_json = JSON.parse file_content
         else 
