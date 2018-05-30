@@ -12,13 +12,13 @@ class Profile
         if !File.directory?(File.expand_path("~/.ssport"))
             `mkdir ~/.ssport`
         end
-        File.expand_path "~/.ssport/.#{alias_name}.rc"
+        File.expand_path "~/.ssport/#{alias_name}.rc"
     end
 
     def list
-         alias_names = Dir["~/.ssport"].select{ |f| File.file? f }.map{ |f| File.basename f}.join "\n"
+         alias_names = Dir[File.expand_path "~/.ssport/*"].select{ |f| File.file? f }.map{ |f| File.basename f, ".rc"}.join "\n"
          puts '----------Alias Name----------'.colorize(:yellow)
-         puts alias_names..colorize(:green)
+         puts alias_names.colorize(:green)
     end
    
     def dealrc
@@ -48,7 +48,8 @@ class Profile
         if @alias_name 
             rc_content = File.read genrc(@alias_name)
             rc = JSON.parse(rc_content)
-            return rc
+            final_rc = rc.collect{|k,v| [k.to_sym, v]}.to_h
+            return final_rc
         else
             puts "Don't find server alias name profile.".colorize(:red)
         end

@@ -12,7 +12,6 @@ module Ssport
   def self.run 
 
     options = {}
-    options[:config] = "shadowsocks.json"
     OptionParser.new do |opts|
       opts.banner = "Usage: change shadowsocket port"
 
@@ -59,7 +58,7 @@ module Ssport
     end.parse!
 
     if options[:version] 
-      puts Ssport.VERSION
+      puts Ssport::VERSION
       return 
     end
 
@@ -98,7 +97,5 @@ module Ssport
       options[key] = rc_value 
     end
   end
-
-
 
 end

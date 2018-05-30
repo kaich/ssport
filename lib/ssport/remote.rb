@@ -1,6 +1,7 @@
 require 'json'
 require 'colorize'
 require 'net/ssh'
+require 'version'
 
 class Remote
     
@@ -22,17 +23,25 @@ class Remote
         command = "ssport -c #{@options[:config]}"
         keys.each do |key|
             if @options[key] 
-                command += " --#{key} #{@options[key]}"
+                if key == :port
+                    command += " -b #{@options[key]}"
+                else 
+                    command += " --#{key} #{@options[key]}"
+                end
             end
         end
         return command
     end
 
     def genScript
-        command = genCommand [:password , :method, :port]
+        command = genCommand [:password , :method, :port, :config]
         script = %Q{
           if ! [ -x "$(command -v ssport)" ]; then
             gem install ssport
+          else 
+            if [ `ssport -v` == "#{Ssport::VERSION}" ]; then 
+                gem update ssport
+            fi
           fi
           #{command}
           ssserver -c #{@options[:config]} -d start
@@ -41,11 +50,11 @@ class Remote
     end
     
     def ssh
-        if !check?(@options, [:server, :username, :pass, :config] 
+        if !check?([:server, :username, :pass, :config])
           return 
         end
     
-        puts '----------------Begin Connect---------------'.colorize(:yellow)
+        puts "Begin Connect #{@options[:server]}".colorize(:yellow)
     
         output = ""
         script = genScript

@@ -21,11 +21,11 @@ class Config
     end
 
     def parseConfig
-        puts "---------bengin parse #{@config_file} ------------".colorize(:yellow)
+        puts "---------Bengin Deal #{@config_file} ------------".colorize(:yellow)
         if File.exist? @config_file 
             file_content = File.read @config_file
             @config_json = JSON.parse file_content
-            puts "-------------old config---------------".colorize(:yellow)
+            puts "-------------Old Config---------------".colorize(:yellow)
             puts JSON.pretty_generate(@config_json)
         else 
             puts "Config 文件不存在".colorize(:red)
@@ -44,7 +44,7 @@ class Config
         changeField @@PASSWORD , :password
         changeField @@METHOD , :method
         final_config = JSON.pretty_generate(@config_json)
-        puts "-------------new config---------------".colorize(:yellow)
+        puts "-------------New Config---------------".colorize(:yellow)
         puts final_config
         File.write @config_file , final_config 
     end
