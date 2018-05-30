@@ -44,7 +44,7 @@ class Remote
             fi
           fi
           #{command}
-          ssserver -c #{@options[:config]} -d start
+          ssserver -c #{@options[:config]} -d restart
           }
         script
     end
