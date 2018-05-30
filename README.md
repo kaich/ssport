@@ -32,9 +32,11 @@
 * b 设置SS需要绑定的端口号
 * p 设置SS需要修改的新密码
 * m 设置SS需要修改的加密方法
-* c 指定SS服务的配置文件位置, 默认是`/etc/shadowsocks.json`
+* c 指定SS服务的配置文件位置
 
 如果您遇到需要修改SS配置的情况，可以尝试使用该命令行来解决您的问题。
+
+##### 查看配置
 
 如何只查看SS的配置呢。 很简单，只要不加修改的选项就可以了。例如：`ssport -A bandwagon`, 显示内容如下：
 
@@ -67,6 +69,14 @@
 原本的配置和新的配置一模一样，也就是任何内容都未曾改变。用于方便的查看SS配置。
 
 
+###### 修改配置
+
+* 修改端口号并添加主机别名为ramnode： `ssport -S 47.192.99.110 -P 123456 -U root -c /etc/shadowsocks.json -b 805 -A ramnode`
+* 修改端口号: `ssport -A ramnode -b 903`
+* 修改加密方法: `ssport -A ramnode -m rc4-md5`
+* 修改端口号、加密方法、密码：`ssport -A ramnode -b 900 -m rc4-md5 -p 123456`
+
+以上内容都是虚构的地址和用户名密码，请替换成你自己的进行操作。
 
 ## Contributing
 
