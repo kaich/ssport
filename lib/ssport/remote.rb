@@ -1,7 +1,7 @@
 require 'json'
 require 'colorize'
 require 'net/ssh'
-require 'version'
+require 'ssport/version'
 
 class Remote
     
@@ -39,7 +39,7 @@ class Remote
           if ! [ -x "$(command -v ssport)" ]; then
             gem install ssport
           else 
-            if [ `ssport -v` == "#{Ssport::VERSION}" ]; then 
+            if [ `ssport -v` != "#{Ssport::VERSION}" ]; then 
                 gem update ssport
             fi
           fi

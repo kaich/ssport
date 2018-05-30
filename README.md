@@ -36,6 +36,37 @@
 
 如果您遇到需要修改SS配置的情况，可以尝试使用该命令行来解决您的问题。
 
+如何只查看SS的配置呢。 很简单，只要不加修改的选项就可以了。例如：`ssport -A bandwagon`, 显示内容如下：
+
+    ---------Bengin Deal /etc/shadowsocks.json ------------
+    -------------Old Config---------------
+    {
+    "server": "47.192.99.110",
+    "server_port": "8081",
+    "local_address": "127.0.0.1",
+    "local_port": 1080,
+    "password": "ssport",
+    "timeout": 300,
+    "method": "rc4-md5",
+    "fast_open": false,
+    "workers": 1
+    }
+    -------------New Config---------------
+    {
+    "server": "47.192.99.110",
+    "server_port": "8081",
+    "local_address": "127.0.0.1",
+    "local_port": 1080,
+    "password": "ssport",
+    "timeout": 300,
+    "method": "rc4-md5",
+    "fast_open": false,
+    "workers": 1
+    }
+
+原本的配置和新的配置一模一样，也就是任何内容都未曾改变。用于方便的查看SS配置。
+
+
 
 ## Contributing
 
