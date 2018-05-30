@@ -1,3 +1,6 @@
+require "colorize"
+require "json"
+
 class Config
      
     @@SERVER_PORT = "server_port"
@@ -18,11 +21,14 @@ class Config
     end
 
     def parseConfig
+        puts "---------bengin parse #{@config_file} ------------".colorize(:yellow)
         if File.exist? @config_file 
             file_content = File.read @config_file
             @config_json = JSON.parse file_content
+            puts "-------------old config---------------".colorize(:yellow)
+            puts JSON.pretty_generate(@config_json)
         else 
-            p "Config 文件不存在".colorize(:red)
+            puts "Config 文件不存在".colorize(:red)
         end
     end
 
@@ -37,7 +43,10 @@ class Config
         changeField @@SERVER_PORT , :port
         changeField @@PASSWORD , :password
         changeField @@METHOD , :method
-        File.write @config_file , @config_json.to_json 
+        final_config = JSON.pretty_generate(@config_json)
+        puts "-------------new config---------------".colorize(:yellow)
+        puts final_config
+        File.write @config_file , final_config 
     end
 
     
