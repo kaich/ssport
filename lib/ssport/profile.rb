@@ -23,11 +23,11 @@ class Profile
    
     def dealrc
         if @alias_name 
-            server = options[:server]
-            username = options[:username]
-            pass = options[:pass]
+            server = @options[:server]
+            username = @options[:username]
+            pass = @options[:pass]
             if server || username || pass
-                return saver
+                return saverc
             else 
                 return loadrc
             end

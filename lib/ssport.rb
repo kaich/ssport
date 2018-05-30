@@ -1,10 +1,10 @@
 require "ssport/version"
 require "ssport/config"
 require "ssport/profile"
+require "ssport/remote"
 require "colorize"
 require 'fileutils'
 require 'optparse'
-require 'net/ssh'
 require 'json'
 
 module Ssport
@@ -24,7 +24,7 @@ module Ssport
         options[:alias] = v
       end
 
-      opts.on("-l", "--list", "list available server alia name") do |v|
+      opts.on("-L", "--list", "list available server alia name") do |v|
         options[:list] = true
       end
 
@@ -52,33 +52,38 @@ module Ssport
         options[:config] = v 
       end
 
+      opts.on("-v", "--version","ssport version") do |v|
+        options[:version] = true 
+      end
+
     end.parse!
+
+    if options[:version] 
+      puts Ssport.VERSION
+      return 
+    end
+
+    if options[:list] 
+      profile = Profile.new(options) 
+      profile.list 
+      return 
+    end
 
     alias_name = options[:alias]
     if alias_name 
       profile = Profile.new(options) 
       rc = profile.dealrc
       if rc
-        server = options[:server]
-        rc_server = rc[:server]
-        if !server && rc_server 
-          options[:server] = rc_server 
-        end
-        username = options[:username]
-        rc_username = rc[:username]
-        if !username && rc_username 
-          options[:username] = rc_username 
-        end
-        pass = options[:pass]
-        rc_pass = rc[:pass]
-        if !pass && rc_pass 
-          options[:pass] = rc_pass 
-        end
+        changeOption options, rc, :server
+        changeOption options, rc, :username
+        changeOption options, rc, :pass
+        changeOption options, rc, :config
       end
     end
 
     if options[:server] 
-      ssh options
+      remote = Remote.new(options)
+      remote.ssh
     elsif options[:config]
       config = Config.new(options)
       config.run
@@ -86,28 +91,14 @@ module Ssport
 
   end
 
-
-  def self.ssh(options) 
-    puts '----------------Begin Connect---------------'.colorize(:yellow)
-
-    output = ""
-
-    Net::SSH.start(options[:server], options[:username], :password => options[:pass]) do |ssh|
-      # capture all stderr and stdout output from a remote process
-      script = %Q{
-      if ! [ -x "$(command -v ssport)" ]; then
-        gem install ssport
-      fi
-      ssport -b #{options[:port]} -c #{options[:config]}
-      ssserver -c #{options[:config]} -d start
-      }
-      output = ssh.exec!(script)
+  def self.changeOption(options, rc, key) 
+    opt_value = options[key]
+    rc_value = rc[key]
+    if !opt_value && rc_value 
+      options[key] = rc_value 
     end
-
-    puts '----------------Remote---------------'.colorize(:yellow)
-    puts output
-    puts '------------------End------------------'.colorize(:yellow)
-
   end
+
+
 
 end
