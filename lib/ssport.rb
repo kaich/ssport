@@ -2,6 +2,7 @@ require "ssport/version"
 require "ssport/config"
 require "ssport/profile"
 require "ssport/remote"
+require "ssport/installer"
 require "colorize"
 require 'fileutils'
 require 'optparse'
@@ -59,6 +60,10 @@ module Ssport
         options[:pass] = v
       end
 
+      opts.on("-I", "--install shadowsocket", "install shadowsocket on server, default port: 8388, password: 123456, method: rc4-md5") do |v|
+        options[:install] = true 
+      end
+
       opts.on("-b", "--bind port", "shadowsocket server bind port") do |v|
         options[:port] = v 
       end
@@ -105,11 +110,17 @@ module Ssport
     end
 
     if options[:server] 
-      remote = Remote.new(options)
-      remote.ssh
+        remote = Remote.new(options)
+        remote.ssh
     elsif options[:config]
-      config = Config.new(options)
-      config.run
+      if options[:install] 
+        Installer.run
+        config = Config.new(options)
+        config.create
+      else 
+        config = Config.new(options)
+        config.update
+      end
     end
 
   end

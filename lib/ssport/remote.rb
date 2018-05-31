@@ -23,10 +23,14 @@ class Remote
         command = "ssport -c #{@options[:config]}"
         keys.each do |key|
             if @options[key] 
-                if key == :port
-                    command += " -b #{@options[key]}"
-                else 
-                    command += " --#{key} #{@options[key]}"
+                if @options[key] == true
+                    command += " --#{key} "
+                else
+                    if key == :port
+                        command += " -b #{@options[key]}"
+                    else 
+                        command += " --#{key} #{@options[key]}"
+                    end
                 end
             end
         end

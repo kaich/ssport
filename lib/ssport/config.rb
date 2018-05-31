@@ -12,7 +12,23 @@ class Config
         @config_file = options[:config]
     end
 
-    def run
+    def create 
+       defualt_config = {
+        "server": @options[:server] || "my_server_ip",
+        "server_port": 8388,
+        "local_address":"127.0.0.1",
+        "local_port": 1080,
+        "password": "123456",
+        "timeout": 300,
+        "method": "rc4-md5"
+        }
+        File.write '/etc/shadowsocks.json' , defualt_config 
+
+        parseConfig
+        applyChange
+    end
+
+    def update
         if !@config_file 
             raise "config file not set"
         end 
