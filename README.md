@@ -18,6 +18,7 @@
     -L, --list                       list available server alia name
     -U, --username username          ssh server username
     -P, --pass password              ssh server password
+    -I, --install shadowsocket       install shadowsocket on server, default port: 8388, password: 123456, method: rc4-md5
     -b, --bind port                  shadowsocket server bind port
     -p, --password password          shadowsocket password
     -m, --method method              shadowsocket encry method
@@ -68,6 +69,12 @@
     }
 
 原本的配置和新的配置一模一样，也就是任何内容都未曾改变。用于方便的查看SS配置。
+
+###### 安装SS
+
+* 添加主机别名为ramnode： `ssport -S 47.192.99.110 -P 123456 -U root -c /etc/shadowsocks.json -A ramnode`
+* 在服务器上安装SS: `ssport -A ramnode -i`
+* 在服务器上安装SS，并修改默认配置: `ssport -A ramnode -i -b 900 -m rc4-md5 -p 123456`
 
 
 ###### 修改配置
