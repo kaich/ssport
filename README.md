@@ -38,6 +38,13 @@
 
 如果您遇到需要修改SS配置的情况，可以尝试使用该命令行来解决您的问题。
 
+##### 安装SS
+
+* 添加主机别名为ramnode： `ssport -S 47.192.99.110 -P 123456 -U root -c /etc/shadowsocks.json -A ramnode`
+* 在服务器上安装SS: `ssport -A ramnode -i`
+* 在服务器上安装SS，并修改默认配置: `ssport -A ramnode -i -b 900 -m rc4-md5 -p 123456`
+
+
 ##### 查看配置
 
 如何只查看SS的配置呢。 很简单，只要不加修改的选项就可以了。例如：`ssport -A bandwagon`, 显示内容如下：
@@ -70,14 +77,8 @@
 
 原本的配置和新的配置一模一样，也就是任何内容都未曾改变。用于方便的查看SS配置。
 
-###### 安装SS
 
-* 添加主机别名为ramnode： `ssport -S 47.192.99.110 -P 123456 -U root -c /etc/shadowsocks.json -A ramnode`
-* 在服务器上安装SS: `ssport -A ramnode -i`
-* 在服务器上安装SS，并修改默认配置: `ssport -A ramnode -i -b 900 -m rc4-md5 -p 123456`
-
-
-###### 修改配置
+##### 修改配置
 
 * 修改端口号并添加主机别名为ramnode： `ssport -S 47.192.99.110 -P 123456 -U root -c /etc/shadowsocks.json -b 805 -A ramnode`
 * 修改端口号: `ssport -A ramnode -b 903`
