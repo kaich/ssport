@@ -38,12 +38,12 @@ class Remote
     end
 
     def genScript
-        command = genCommand [:password , :method, :port, :config]
+        command = genCommand [:password , :method, :port, :config, :install]
         script = %Q{
           if ! [ -x "$(command -v ssport)" ]; then
             if ! [ -x "$(command -v ruby)" ]; then
                 curl -sSL https://get.rvm.io | bash -s stable --ruby
-            end
+            fi
             gem install ssport
           else 
             if [ `ssport -v` != "#{Ssport::VERSION}" ]; then 
