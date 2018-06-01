@@ -44,8 +44,8 @@ ssport是一个方便的安装、修改、重启shadowsocket服务的工具，�
 ##### 安装SS
 
 * 添加主机别名为ramnode： `ssport -S 47.192.99.110 -P 123456 -U root -c /etc/shadowsocks.json -A ramnode`
-* 在服务器上安装SS: `ssport -A ramnode -i`
-* 在服务器上安装SS，并修改默认配置: `ssport -A ramnode -i -b 900 -m rc4-md5 -p 123456`
+* 在服务器上安装SS: `ssport -A ramnode -I`
+* 在服务器上安装SS，并修改默认配置: `ssport -A ramnode -I -b 900 -m rc4-md5 -p 123456`
 
 
 ##### 查看配置
