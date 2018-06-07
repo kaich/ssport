@@ -16,9 +16,12 @@ class Profile
     end
 
     def list
-         alias_names = Dir[File.expand_path "~/.ssport/*"].select{ |f| File.file? f }.map{ |f| File.basename f, ".rc"}.join "\n"
+         alias_names = Dir[File.expand_path "~/.ssport/*"].select{ |f| File.file? f }.map{ |f| File.basename f, ".rc"}
          puts '----------Alias Name----------'.colorize(:yellow)
-         puts alias_names.colorize(:green)
+         alias_names.each do |name|
+            rc = loadrc
+            puts "#{alias_names}  :  #{rc[:server]}".colorize(:green)
+         end
     end
    
     def dealrc

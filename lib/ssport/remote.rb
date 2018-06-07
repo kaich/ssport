@@ -62,7 +62,7 @@ class Remote
           return 
         end
     
-        puts "Begin Connect #{@options[:server]}".colorize(:yellow)
+        puts "Begin Connect #{@options[:server]}...".colorize(:yellow)
     
         output = ""
         script = genScript
