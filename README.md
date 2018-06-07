@@ -41,6 +41,13 @@ ssport是一个方便的安装、修改、重启shadowsocket服务的工具，�
 
 如果您遇到需要修改SS配置的情况，可以尝试使用该命令行来解决您的问题。
 
+
+如果在第一次运行ssport命令的时候可能会出现一下错误，请勿担心，第二次运行之后一切正常。具体导致的原因还不明，但是命令确实已经执行并且起作用了。
+
+    To start using RVM you need to run `source /usr/local/rvm/scripts/rvm`
+    in all your open shell windows, in rare cases you need to reopen all shell windows.
+
+
 ##### 安装SS
 
 * 添加主机别名为ramnode： `ssport -S 47.192.99.110 -P 123456 -U root -c /etc/shadowsocks.json -A ramnode`
