@@ -69,11 +69,15 @@ class Remote
 
         server = @options[:server]
         port = nil
-        if server.includes?(":") 
+        if server.include?(":") 
           server, port = server.split(":")
         end 
+        params = {:password => @options[:pass]}
+        if port 
+          params[:port] = port
+        end
     
-        Net::SSH.start(server, @options[:username], :password => @options[:pass], :port => port ) do |ssh|
+        Net::SSH.start(server, @options[:username], params) do |ssh|
           # capture all stderr and stdout output from a remote process
           output = ssh.exec!(script)
         end
