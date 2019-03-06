@@ -66,7 +66,12 @@ class Remote
     
         output = ""
         script = genScript
-        server, port = @options[:server].split(":")
+
+        server = @options[:server]
+        port = nil
+        if server.includes?(":") 
+          server, port = server.split(":")
+        end 
     
         Net::SSH.start(server, @options[:username], :password => @options[:pass], :port => port ) do |ssh|
           # capture all stderr and stdout output from a remote process
